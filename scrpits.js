@@ -1,64 +1,50 @@
-const box = document.getElementsByClassName('box')[0]
+// target elements with the "draggable" class
+// import interact from interactjs
+const interact = require('interactjs');
 
-const containers = document.getElementsByClassName('holder')
+interact('.draggable')
+  .draggable({
+    // enable inertial throwing
+    inertia: true,
+    // keep the element within the area of it's parent
+    modifiers: [
+      interact.modifiers.restrictRect({
+        restriction: 'parent',
+        endOnly: true
+      })
+    ],
+    // enable autoScroll
+    autoScroll: true,
 
-for(const container of containers) {
-  container.addEventListener("dragover", dragover)
-  container.addEventListener("dragcenter", dragcenter)
-  container.addEventListener("drop", drop)
+    // call this function on every dragmove event
+    onmove: dragMoveListener,
+    // call this function on every dragend event
+    onend: function (event) {
+      var textEl = event.target.querySelector('p')
+
+      textEl && (textEl.textContent =
+        'moved a distance of ' +
+        (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
+                   Math.pow(event.pageY - event.y0, 2) | 0))
+          .toFixed(2) + 'px')
+    }
+  })
+
+function dragMoveListener (event) {
+  var target = event.target
+  // keep the dragged position in the data-x/data-y attributes
+  var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+  var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+  // translate the element
+  target.style.webkitTransform =
+    target.style.transform =
+      'translate(' + x + 'px, ' + y + 'px)'
+
+  // update the posiion attributes
+  target.setAttribute('data-x', x)
+  target.setAttribute('data-y', y)
 }
 
-function dragover(e) {
-  e.preventDefault ()
-}
-
-function dragcenter(e) {
-  e.preventDefault ()
-}
-
-function drop() {
-  this.append (box)
-}
- next example
-
- <html>
-<head>
-<style>
-#div1, #div2 {
-  float: left;
-  width: 100px;
-  height: 35px;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid black;
-}
-</style>
-<script>
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
-}
-</script>
-</head>
-<body>
-
-<h2>Drag and Drop</h2>
-<p>Drag the image back and forth between the two div elements.</p>
-
-<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
-  <img src="img_w3slogo.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">
-</div>
-
-<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-
-</body>
-</html>
+// this is used later in the resizing and gesture demos
+window.dragMoveListener = dragMoveListener
