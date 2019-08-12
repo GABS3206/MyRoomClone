@@ -1,6 +1,4 @@
 // target elements with the "draggable" class
-// import interact from interactjs
-const interact = require('interactjs');
 
 interact('.draggable')
   .draggable({
