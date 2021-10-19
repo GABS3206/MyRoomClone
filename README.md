@@ -2,7 +2,7 @@
 
 ## Background
 
-#This project was an open source group project that I worked on during the Girls Who Code Summer Immersion Program. It is a virtual interior design website that lets users drag and drop items in a specific room theme. 
+This project was an open source group project that I worked on during the Girls Who Code Summer Immersion Program. It is a virtual interior design website that lets users drag and drop items in a specific room theme. 
 
 # Usage
 
