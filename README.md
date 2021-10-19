@@ -4,8 +4,8 @@
 
 This project was an open source group project that I worked on during the Girls Who Code Summer Immersion Program. It is a virtual interior design website that lets users drag and drop items in a specific room theme. 
 
-# Usage
+## Usage
 
-#Users click through the sign in link and then will choose one of 8 of the specific room themes to drag and drop items to decorate their bedroom to their liking. 
+Users click through the sign in link and then will choose one of 8 of the specific room themes to drag and drop items to decorate their bedroom to their liking. 
 
-#In order to use the program, copy and paste the index file into this preview site: https://htmlpreview.github.io
+In order to use the program, copy and paste the index file into this preview site: https://htmlpreview.github.io
